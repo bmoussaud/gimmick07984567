@@ -1,0 +1,16 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: Applications/paas
+  children:
+  - name: PetClinic-war
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: petclinic
+        type: jee.War
+        file: !file "artifacts/Applications/paas/PetClinic-war/1.0/petclinic/PetClinic-1.0.war"

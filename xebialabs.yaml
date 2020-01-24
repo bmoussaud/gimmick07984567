@@ -1,0 +1,8 @@
+apiVersion: xl/v1
+kind: Import
+metadata:
+ imports:
+   - config/directories.yaml
+   - config/infrastructure_paas.yaml
+   - config/environment_paas.yaml
+   - config/application_paas.yaml

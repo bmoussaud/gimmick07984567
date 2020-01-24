@@ -1,0 +1,27 @@
+---
+apiVersion: xl-deploy/v1
+kind: Infrastructure
+spec:
+- directory: Infrastructure/paas
+  children:
+  - name: awshost
+    type: overthere.LocalHost
+    os: UNIX
+  - name: aws-xl
+    type: aws.Cloud
+    accesskey: !value "aws_access_key_id"
+    accessSecret: !value "aws_secret_access_key"
+    awsHost: Infrastructure/paas/awshost
+    children:
+    - name: europ-prod
+      type: aws.cloudformation.Stack
+      region: eu-west-3
+    - name: usa-west-prod
+      type: aws.cloudformation.Stack
+      region: us-west-2
+    - name: usa-east-prod
+      type: aws.cloudformation.Stack
+      region: us-east-2
+    - name: paris-dev
+      type: aws.cloudformation.Stack
+      region: eu-west-3
