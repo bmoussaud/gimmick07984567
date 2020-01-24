@@ -1,7 +1,56 @@
 <?xml version="1.0"?>
 <!--
-    Note: If you modify this file and automatic reloading is disabled in `planner.conf`, you must restart the XL Deploy server.
+Note: If you modify this file and automatic reloading is disabled in `planner.conf`, you must restart the XL Deploy server.
 -->
 <rules xmlns="http://www.xebialabs.com/xl-deploy/xl-rules">
-    <!-- Add your <rule ...> and <disable-rule ...> elements here -->
+
+  <rule name="aws.beanstalk.DeployedJavaArtifact_apply" scope="deployed">
+    <conditions>
+      <type>aws.beanstalk.DeployedJavaArtifact</type>
+      <operation>CREATE</operation>
+      <operation>MODIFY</operation>
+    </conditions>
+    <planning-script-path>aws/elasticbeanstalk/planningScripts/apply.py</planning-script-path>
+  </rule>
+
+  <rule name="aws.beanstalk.DeployedJavaArtifact_deploy" scope="deployed">
+    <conditions>
+      <type>aws.beanstalk.DeployedJavaArtifact</type>
+      <operation>CREATE</operation>
+      <operation>MODIFY</operation>
+    </conditions>
+    <steps>
+      <os-script>
+        <description expression="true">"Upload {0} on {1} in S3".format(deployed.name, deployed.container.name)</description>
+        <order>60</order>
+        <script>aws/elasticbeanstalk/s3_upload_file</script>
+        <target-host expression="true">deployed.container.account.awsHost</target-host>
+      </os-script>
+      <!--
+      <os-script>
+        <order>60</order>
+        <description expression="true">"Deploy {0} to {1} Elastic BeanStalk".format(deployed.name, deployed.container.name)</description>
+        <target-host expression="true">deployed.container.account.awsHost</target-host>
+        <script>aws/elasticbeanstalk/deploy</script>
+        <freemarker-context>
+          <deployedApplication expression="true">deployedApplication</deployedApplication>
+          <stack_name expression="true">"{0}-{1}-{2}-{3}".format(deployedApplication.environment.name,deployedApplication.version.application.name,deployed.name, deployed.container.name)</stack_name>
+          <operation expression="true">delta.operation</operation>
+        </freemarker-context>
+      </os-script>
+      -->
+
+      <jython>
+        <order>62</order>
+        <description expression="true">"Wait for {0} to be deployed on {1} Elastic BeanStalk".format(deployed.name, deployed.container.name)</description>
+        <script>aws/elasticbeanstalk/wait_for_up.py</script>
+        <jython-context>
+          <target_host expression="true">deployed.container.account.awsHost</target_host>
+          <stack_name expression="true">"{0}-{1}-{2}-{3}".format(deployedApplication.environment.name,deployedApplication.version.application.name,deployed.name, deployed.container.name)</stack_name>
+          <attempts>200</attempts>
+        </jython-context>
+      </jython>
+    </steps>
+  </rule>
 </rules>
+
