@@ -1,0 +1,4 @@
+name: default-content
+description: Provided the default content file 
+type: jython
+file: default.py

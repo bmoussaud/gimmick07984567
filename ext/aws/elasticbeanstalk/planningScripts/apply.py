@@ -1,6 +1,10 @@
 from java.io import BufferedReader
 from java.io import InputStreamReader
 from java.lang import StringBuilder
+from overtherepy import LocalConnectionOptions, OverthereHost, OverthereHostSession
+from com.xebialabs.overthere import OperatingSystemFamily
+from com.xebialabs.overthere.cifs import CifsConnectionType
+
 
 def stringify(stream):
     reader = BufferedReader(InputStreamReader(stream))
@@ -19,24 +23,28 @@ def stringify(stream):
 
 def stitchGlobalTemplate(deployed, context):
 
-    transformerContext = {"templateNamespace": "xld-docker-compose-global",
-                          "templateName": "xld-docker-compose-template-global"}
+    transformerContext = {"templateNamespace": "xld-aws-beanstalk-global",
+                          "templateName": "default"}
 
-    stitchedContent = context.getArtifactTransformer("stitchEngine").transform(deployed.file.getInputStream(), transformerContext)
+    localOpts = LocalConnectionOptions(os=OperatingSystemFamily.UNIX)
+    host = OverthereHost(localOpts)
+    session =  OverthereHostSession(host)
+
+
+    input_file = session.work_dir_file('aws_aws.txt')
+    input_file = session.upload_text_content_to_work_dir("{}","aws_aws.json",executable=True)
+    print "input_file is {0}".format(input_file)
+    #input_file = deployed.file
+
+    stitchedContent = context.getArtifactTransformer("stitchEngine").transform(input_file.getInputStream(), transformerContext)
 
     return stringify(stitchedContent)
 
 
 
-
-
-
-
 if deployed:
 
-    #data = stitchGlobalTemplate(deployed, context)
-    data = "XXXX"
-
+    data = stitchGlobalTemplate(deployed, context)
 
     context.addStep(steps.os_script(
                             description="Deploy {0} to {1} Elastic BeanStalk".format(deployed.name, deployed.container.name),

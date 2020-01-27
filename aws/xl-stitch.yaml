@@ -1,0 +1,4 @@
+apiVersion: v1
+namespace: xld-aws-beanstalk-global
+name: xld-aws-beanstalk-global
+description: A repo AWS Elastic Bean Stalk
