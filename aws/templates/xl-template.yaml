@@ -2,4 +2,4 @@ name: xld-aws-beanstalk-template-global
 
 description: This templates defines operations on cloudformation configuration
 fragments:
-  - default
+  - default-content
