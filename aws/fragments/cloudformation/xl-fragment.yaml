@@ -1,4 +1,4 @@
-name: default-content
-description: Provided the default content file 
+name: default-cloudformation
+description: Load the cloudformation skeletton
 type: jython
-file: default.py
+file: default-cloudformation.py

@@ -20,11 +20,11 @@ def load_classpath_resource(resource):
 
 def stitch(ctx, source):
     print "----------------------------------------------------"
-    print "default ctx {0} {1}".format(ctx, type(ctx))
-    print "default source {0} {1}".format(source, type(source))
+    print "output ctx    {0} {1}".format(ctx, type(ctx))
+    print "output source {0} {1}".format(source, type(source))
     print "----------------------------------------------------"
 
-    template_url = "aws/elasticbeanstalk/default_resource.json.template"
+    template_url = "aws/elasticbeanstalk/default_output.json.template"
     print "template url {0}".format(template_url)
     print "----------------------------------------------------"
 
@@ -42,7 +42,10 @@ def stitch(ctx, source):
     print "-----------------"
     print content
     print "-----------------"
+    outputs = json.loads(content)['Outputs']
+    print outputs
+    print "-----------------"
 
-    source.putPOJO("", json.loads(content))
+    source.putPOJO('Outputs',outputs)
 
     return source

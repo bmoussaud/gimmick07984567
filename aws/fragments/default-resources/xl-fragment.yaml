@@ -1,0 +1,4 @@
+name: default-beanstalk-resources
+description: Generate the default cloudformation resources
+type: jython
+file: default-resources.py

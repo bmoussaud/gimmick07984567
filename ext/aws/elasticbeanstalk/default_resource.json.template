@@ -1,6 +1,4 @@
-
 {
-  "AWSTemplateFormatVersion": "2010-09-09",
   "Resources": {
     "${application}": {
       "Type": "AWS::ElasticBeanstalk::Application",
@@ -54,15 +52,5 @@
           ]
       }
     }
-  },
-  "Outputs": {
-    "URL": {
-      "Description": "URL",
-      "Value": {
-        "Fn::GetAtt": ["${application}Env","EndpointURL"]
-      }
-    }
   }
-
-
 }

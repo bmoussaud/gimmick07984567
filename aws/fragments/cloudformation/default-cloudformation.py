@@ -20,29 +20,31 @@ def load_classpath_resource(resource):
 
 def stitch(ctx, source):
     print "----------------------------------------------------"
-    print "default ctx {0} {1}".format(ctx, type(ctx))
-    print "default source {0} {1}".format(source, type(source))
+    print "default-cloudformation ctx    {0} {1}".format(ctx, type(ctx))
+    print "default-cloudformation source {0} {1}".format(source, type(source))
     print "----------------------------------------------------"
 
-    template_url = "aws/elasticbeanstalk/default_resource.json.template"
+    template_url = "aws/cloudformation/default_resource.json.template"
     print "template url {0}".format(template_url)
     print "----------------------------------------------------"
 
     template_content = load_classpath_resource(template_url)
     #print template_content
     template = Template(template_content)
-    values = {'application': 'PetClinic',
-          'environment':'DEV', 
-          'version':'1.0', 
-          'region':'paris', 
-          'file':'PetClinic.War', 
-          'solutionStackName':'Tomcat 8'}
-
+    values = {}
     content = template.safe_substitute(values)
     print "-----------------"
     print content
     print "-----------------"
-
-    source.putPOJO("", json.loads(content))
+    print json.loads(content)
+    print "-----------------"
+    # it should be loaded in a template
+    #template_url = "aws/cloudformation/default_resource.json.template"
+    #template = Template(template_content)
+    #content = template.safe_substitute(values)
+    # as I don't know how to fill up the source with it, this is the code.
+    source.put('AWSTemplateFormatVersion','2010-09-09')
+    source.putPOJO('Resources',dict())
+    source.putPOJO('Outputs', dict())
 
     return source

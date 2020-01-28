@@ -1,0 +1,4 @@
+name: default-beanstalk-outputs
+description: Generate the output cloudformation resources
+type: jython
+file: default-output.py
