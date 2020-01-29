@@ -1,0 +1,4 @@
+name: production-optionsbeanstalk-resources
+description: Generate the prod cloudformation resources
+type: jython
+file: prod-resources.py

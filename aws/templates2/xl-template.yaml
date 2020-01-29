@@ -1,0 +1,6 @@
+name: xld-aws-beanstalk-template-prod
+
+description: This templates defines operations on cloudformation configuration for prod 
+fragments:
+  - production-optionsbeanstalk-resources
+  
