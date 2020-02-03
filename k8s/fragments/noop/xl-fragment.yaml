@@ -1,0 +1,4 @@
+name: default-noop
+description: Return self
+type: jython
+file: default-noop.py

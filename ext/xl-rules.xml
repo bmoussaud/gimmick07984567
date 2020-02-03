@@ -52,5 +52,54 @@ Note: If you modify this file and automatic reloading is disabled in `planner.co
       </jython>
     </steps>
   </rule>
+
+  <!-- K8S -->
+  <disable-rule name="k8s.Resources.CREATE"/>
+
+
+  <rule name="1.benoit.k8s.Resources" scope="deployed">
+    <conditions>
+      <type>k8s.Resources</type>
+      <operation>CREATE</operation>
+      <operation>MODIFY</operation>
+    </conditions>
+    <planning-script-path>k8s/resource/planningScripts/stich.py</planning-script-path>
+  </rule>
+
+  <rule name="2.benoit.k8s.Resources" scope="deployed">
+    <conditions>
+      <type>k8s.Resources</type>
+      <operation>CREATE</operation>
+      <operation>MODIFY</operation>
+    </conditions>
+    <steps>
+      <os-script>
+        <description expression="true">"Apply {0} on {1} namespace".format(deployed.name, deployed.container.name)</description>
+        <target-host expression="true">deployed.container.container.kubectlHost</target-host>
+        <script>k8s/resource/apply</script>
+        <order>60</order>
+        <freemarker-context>
+          <data expression="true">context.getAttribute('document')</data>
+        </freemarker-context>
+      </os-script>
+
+       <jython>
+        <order>62</order>
+        <description expression="true">"Wait for {0} to be deployed on {1} namespace".format(deployed.name, deployed.container.name)</description>
+        <script>k8s/resource/wait_for_up.py</script>
+        <preview-script>k8s/resource/wait_for_up_preview.py</preview-script>
+        <jython-context>
+          <resource expression="true">context.getAttribute('resource')</resource>
+          <resourceName expression="true">context.getAttribute('resourceName')</resourceName>
+        </jython-context>
+      </jython>
+
+    </steps>
+  </rule>
+
+
+
+
+
 </rules>
 

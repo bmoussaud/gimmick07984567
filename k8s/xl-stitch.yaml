@@ -1,0 +1,4 @@
+apiVersion: v1
+namespace: xld-k8s
+name: xld-k8s
+description: Manage K8S resource files

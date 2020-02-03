@@ -1,0 +1,10 @@
+name: default-cloudformation
+description: Load the cloudformation skeletton
+type: load
+fragment: aws/cloudformation/default_resource.json.template
+context:
+  - deployed
+  - 'stackname' : ${deployed.name}-${deployed.region}
+output: mystack.json
+
+

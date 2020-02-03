@@ -1,0 +1,33 @@
+# ===================================================================
+# Spring Boot configuration for the loginmiddle project.
+#
+# This configuration overrides the application.yml file.
+# ===================================================================
+
+# ===================================================================
+# Version appli pour appel Trafic
+# 
+# ex
+# 
+# cnaf.loginmiddle.trafic.numeroallocataire.versionappli: 0370
+# cnaf.loginmiddle.creerConnexion.ipExclues: 192.168,63.10.3.33
+#
+# ===================================================================
+cnaf.loginmiddle.trafic.numeroallocataire.versionappli: {{loginmiddle_trafic_numeroallocataire_versionappli}}
+cnaf.loginmiddle.creerConnexion.ipExclues: {{loginmiddle_creerConnexion_ipExclues}}
+      
+# ===================================================================
+# !!! UNIQUEMENT POUR LES ENVIRONNEMENT QUI NE SONT PAS EN PRODUCTION
+# En fonction du code organisme de production, restitution du code
+# organisme de validation. Ainsi, si le code que l'on traite est dans
+# une des lignes apres le signe égale ('='), on retourne le code orga avant
+# le signe égale
+# Ex : si code orga traité = 451
+#      restitution du code orga de validation = 457
+# liste des codes organismes IVR = code organismes de production 
+# ex
+# cnaf.loginmiddle.codeOrgaAMapper: 456=141,142 457=451,452,453
+# 
+# ===================================================================
+cnaf.loginmiddle.codeOrgaAMapper: {{loginmiddle_codeOrgaAMapper}}    
+        

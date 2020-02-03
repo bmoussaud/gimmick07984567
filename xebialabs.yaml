@@ -6,3 +6,6 @@ metadata:
    - config/infrastructure_paas.yaml
    - config/environment_paas.yaml
    - config/application_paas.yaml
+   - config/infrastructure_k8s.yaml
+   - config/environment_k8s.yaml
+   - config/application_k8s.yaml

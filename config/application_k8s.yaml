@@ -1,0 +1,24 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: Applications/k8s
+  children:
+  - name: simpleservice
+    type: udm.Application
+    lastVersion: 1.0.0
+    children:
+    - name: 1.0.0
+      type: udm.DeploymentPackage
+      deployables:
+      - name: resources
+        type: k8s.ResourcesFile
+        placeholders:
+        - loginmiddle_codeOrgaAMapper
+        - loginmiddle_creerConnexion_ipExclues
+        - loginmiddle_trafic_numeroallocataire_versionappli
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        file: !file "artifacts/Applications/k8s/simpleservice/1.0.0/resources/config.json"
+
