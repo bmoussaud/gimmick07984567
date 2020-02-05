@@ -3,3 +3,4 @@ name: xld-k8s-resource-template
 description: This templates defines operations on cloudformation configuration
 fragments:
   - default-noop
+  - rename-resource

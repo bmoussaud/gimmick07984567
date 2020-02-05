@@ -1,0 +1,30 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- name: Applications/k8s/xl-front-back-app
+  type: udm.Application
+  lastVersion: 0.0.81
+  children:
+  - name: 0.0.81
+    type: udm.DeploymentPackage
+    deployables:    
+    - name: front-ingress
+      type: k8s.ResourcesFile      
+      file: !file "artifacts/Applications/k8s/xl-front-back-app/0.0.81/front-ingress/front-web-front-web-ingress.json"
+    - name: front-service
+      type: k8s.ResourcesFile      
+      file: !file "artifacts/Applications/k8s/xl-front-back-app/0.0.81/front-service/front-web-front-web-service.json"
+    - name: back-service
+      type: k8s.ResourcesFile
+      file: !file "artifacts/Applications/k8s/xl-front-back-app/0.0.81/back-service/back-web-back-web-service.json"
+    - name: back-deployment
+      type: k8s.ResourcesFile    
+      file: !file "artifacts/Applications/k8s/xl-front-back-app/0.0.81/back-deployment/back-back-back-deployment-1.0.81.json"
+    - name: config
+      type: k8s.ResourcesFile          
+      file: !file "artifacts/Applications/k8s/xl-front-back-app/0.0.81/config/config-map.json"
+    - name: front-deployment
+      type: k8s.ResourcesFile     
+      file: !file "artifacts/Applications/k8s/xl-front-back-app/0.0.81/front-deployment/front-front-front-deployment-1.0.81.json"
+  

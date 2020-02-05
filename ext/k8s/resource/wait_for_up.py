@@ -71,7 +71,7 @@ def dump_events():
         for event in get_pod_events(deployed, pod):
             print event
 
-
+attempts = 200
 command_line = "{0} get {1} {2} -o=json".format(get_kubectl_command(deployed.container), resource, resourceName)
 print command_line
 session = OverthereHostSession(target_host)
@@ -84,25 +84,28 @@ try:
         result = "RETRY"
     else:
         data = json.loads(" ".join(response.stdout))
-        condition = data['status']['conditions'][0]
-        print "Status {status} {reason}: {message}".format(**condition)
-        availableReplicas = get_available_replicas(data)
-        replicas = 3 #deployed.replicas
-        print "availableReplicas {0}/ replicas {1}".format(availableReplicas, replicas)
-
-        if availableReplicas >= replicas:
-            print "DONE replicas"
-            dump_events()
+        if  not resourceName ==  "Deployment": 
+            print data
         else:
-            inc_context(resourceName)
-            cpt = get_value_context(resourceName)
-            print "WAIT....{0}/{1}".format(cpt, attempts)
-            if cpt < int(attempts):
-                result = "RETRY"
-            else:
-                print "Too many attempts {0}".format(attempts)
+            condition = data['status']['conditions'][0]
+            print "Status {status} {reason}: {message}".format(**condition)
+            availableReplicas = get_available_replicas(data)
+            replicas = 1 #deployed.replicas
+            print "availableReplicas {0}/ replicas {1}".format(availableReplicas, replicas)
+
+            if availableReplicas >= replicas:
+                print "DONE replicas"
                 dump_events()
-                result = int(attempts)
+            else:
+                inc_context(resourceName)
+                cpt = get_value_context(resourceName)
+                print "WAIT....{0}/{1}".format(cpt, attempts)
+                if cpt < int(attempts):
+                    result = "RETRY"
+                else:
+                    print "Too many attempts {0}".format(attempts)
+                    dump_events()
+                    result = int(attempts)
 
 finally:
     session.close_conn()

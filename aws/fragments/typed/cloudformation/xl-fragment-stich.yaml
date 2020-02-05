@@ -1,12 +1,10 @@
 name: default-cloudformation
 description: Load the cloudformation skeletton
-type: stitch
-fragment: aws/cloudformation/my.json.template
+type: load
+fragment: aws/cloudformation/default_resource.json.template
 context:
   - deployed
   - 'stackname' : ${deployed.name}-${deployed.region}
-actions:
-  - output_extract ['Root']['Resource']
-  - update_source ['Data']
+output: mystack.json
 
 

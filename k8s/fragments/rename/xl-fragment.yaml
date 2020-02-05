@@ -1,0 +1,4 @@
+name: rename-resource
+description: Rename the resource by adding benoit and replace all the - by .
+type: jython
+file: benoit-resource.py
