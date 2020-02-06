@@ -1,0 +1,4 @@
+name: labels
+description: Set the labels
+type: jython
+file: labels.py

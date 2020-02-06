@@ -4,3 +4,4 @@ description: This templates defines operations on cloudformation configuration
 fragments:
   - default-noop
   - rename-resource
+  - labels

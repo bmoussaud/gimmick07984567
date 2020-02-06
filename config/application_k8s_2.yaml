@@ -27,4 +27,7 @@ spec:
     - name: front-deployment
       type: k8s.ResourcesFile     
       file: !file "artifacts/Applications/k8s/xl-front-back-app/0.0.81/front-deployment/front-front-front-deployment-1.0.81.json"
+    - name: secret-config
+      type: k8s.ResourcesFile     
+      file: !file "./artifacts/Applications/k8s/xl-front-back-app/0.0.81/sensitive-config/config-map.json"
   
