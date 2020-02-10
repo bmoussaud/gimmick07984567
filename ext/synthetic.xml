@@ -52,12 +52,17 @@ Note: If you modify this file, you must restart the XL Deploy server.
   <!-- K8S -->
 
   <type-modification type="k8s.Master">
-    <property name="kubectlHost" required="false" category="stich" kind="ci" referenced-type="overthere.Host"/>
-    <property name="kubeConfigContext" required="false" category="stich" description="the context that should be set before running the commands."/>
+    <property name="kubectlHost" required="false" category="stitch" kind="ci" referenced-type="overthere.Host"/>
+    <property name="kubeConfigContext" required="false" category="stitch" description="the context that should be set before running the commands."/>
   </type-modification>
 
   <type-modification type="k8s.Namespace">
     <property name="dnsSuffix" default="xebialabs.demo"/>
+  </type-modification>
+
+  <type-modification type="udm.Environment">
+    <property name="enableStitch" kind="boolean" default="true" required="false" category="stitch" />
+    <property name="templates" kind="list_of_string" required="false" category="stitch" />
   </type-modification>
 
 

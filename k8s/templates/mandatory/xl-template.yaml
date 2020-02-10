@@ -1,0 +1,5 @@
+name: xld-k8s-mandatory-template
+
+description: This templates defines mandatory operations on k8s json files
+fragments:
+  - default-noop
