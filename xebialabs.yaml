@@ -11,4 +11,5 @@ metadata:
    - config/application_k8s.yaml
    - config/application_k8s_2.yaml
    - config/application_k8s_3.yaml
+   - config/application_k8s_5.yaml
 

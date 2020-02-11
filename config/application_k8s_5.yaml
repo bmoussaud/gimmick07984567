@@ -1,0 +1,200 @@
+---
+apiVersion: xl-deploy/v1
+kind: Applications
+spec:
+- directory: Applications/k8s/HipsterShop
+  children:
+  - name: Frontend
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      orchestrator:
+      - parallel-by-dependency
+      deployables:
+      - name: frontend
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/Frontend/1.0/frontend/frontend.yaml"
+      applicationDependencies:
+        AdService: "1.0"
+        EmailService: "1.0"
+        CheckoutService: "1.0"
+        ShippingService: "1.0"
+        Redis: "1.0"
+        CartService: "1.0"
+        PaymentService: "1.0"
+        RecommendationService: "1.0"
+        CurrencyService: "1.0"
+        ProductCatalogService: "1.0"
+      undeployDependencies: "true"
+  - name: EmailService
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: emailservice
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/EmailService/1.0/emailservice/emailservice.yaml"
+  - name: Redis
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: redis
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/Redis/1.0/redis/redis.yaml"
+  - name: PaymentService
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: paymentservice
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/PaymentService/1.0/paymentservice/paymentservice.yaml"
+  - name: LoadGenerator
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: loadgenerator
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/LoadGenerator/1.0/loadgenerator/loadgenerator.yaml"
+  - name: AdService
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: adservice
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/AdService/1.0/adservice/adservice.yaml"
+  - name: CurrencyService
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: currencyservice
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/CurrencyService/1.0/currencyservice/currencyservice.yaml"
+  - name: ProductCatalogService
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: productcatalogservice
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/ProductCatalogService/1.0/productcatalogservice/productcatalogservice.yaml"
+  - name: ShippingService
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: shippingservice
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/ShippingService/1.0/shippingservice/shippingservice.yaml"
+  - name: RecommendationService
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: recommendationservice
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/RecommendationService/1.0/recommendationservice/recommendationservice.yaml"
+  - name: CheckoutService
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: checkoutservice
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/CheckoutService/1.0/checkoutservice/checkoutservice.yaml"
+  - name: CartService
+    type: udm.Application
+    lastVersion: "1.0"
+    children:
+    - name: "1.0"
+      type: udm.DeploymentPackage
+      deployables:
+      - name: cartservice
+        type: k8s.ResourcesTemplateFile
+        mergePatchType: strategic
+        propagationPolicy: Foreground
+        updateMethod: patch
+        templateNamespace: xld-kubernetes
+        templateName: xld-kubernets-template
+        file: !file "artifacts/Applications/k8s/HipsterShop/CartService/1.0/cartservice/cartservice.yaml"
