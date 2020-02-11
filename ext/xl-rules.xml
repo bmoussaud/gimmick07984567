@@ -54,9 +54,11 @@ Note: If you modify this file and automatic reloading is disabled in `planner.co
   </rule>
 
   <!-- K8S -->
-  <disable-rule name="k8s.Resources.CREATE"/>
-  <disable-rule name="k8s.Resources.MODIFY"/>
+  <!--
+    <disable-rule name="k8s.Resources.CREATE"/>
+    <disable-rule name="k8s.Resources.MODIFY"/>
 
+    -->
 
   <rule name="1.benoit.k8s.Resources" scope="deployed">
     <conditions>
@@ -66,6 +68,8 @@ Note: If you modify this file and automatic reloading is disabled in `planner.co
     </conditions>
     <planning-script-path>k8s/resource/planningScripts/stich.py</planning-script-path>
   </rule>
+  <disable-rule name="1.benoit.k8s.Resources"/>
+  <disable-rule name="2.benoit.k8s.Resources"/>
 
   <rule name="2.benoit.k8s.Resources" scope="deployed">
     <conditions>

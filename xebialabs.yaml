@@ -9,3 +9,6 @@ metadata:
    - config/infrastructure_k8s.yaml
    - config/environment_k8s.yaml
    - config/application_k8s.yaml
+   - config/application_k8s_2.yaml
+   - config/application_k8s_3.yaml
+
